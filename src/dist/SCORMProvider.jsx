@@ -1,12 +1,13 @@
-import { createContext, useContext, useEffect } from 'react';
+import React from 'react';
+import { createContext, useContext, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import useSCORMPackage from 'hooks/use-SCORM-package';
+import useSCORMPackage from './use-SCORM-package';
 
 const SCORMContext = createContext({
   SCORM: undefined,
 });
 
-const SCORMProvider = ({ version, debug: debugProp, children }) => {
+const SCORMProvider = ({ version, debug: debugProp = false, children }) => {
   const { SCORM, debug } = useSCORMPackage();
   const [apiConnected, setApiConnected] = useState(false);
   const [learnerName, setLearnerName] = useState('');
@@ -15,7 +16,7 @@ const SCORMProvider = ({ version, debug: debugProp, children }) => {
 
   const createScormAPIConnection = () => {
     if (apiConnected) return;
-
+    console.log(SCORM, process.env.NODE_ENV)
     if (version) SCORM.version = version;
     if (typeof debugProp === "boolean") debug.isActive = debugProp;
     const scorm = SCORM.init();
@@ -36,7 +37,6 @@ const SCORMProvider = ({ version, debug: debugProp, children }) => {
   const closeScormAPIConnection = () => {
     if (!apiConnected) return;
 
-    setSuspendData();
     SCORM.status('set', completionStatus);
     SCORM.save();
     const success = SCORM.quit();
@@ -44,7 +44,6 @@ const SCORMProvider = ({ version, debug: debugProp, children }) => {
       setApiConnected(false);
       setLearnerName('');
       setCompletionStatus('unknown');
-      setSuspendData({});
       setScormVersion('');
     } else {
       // could not close the SCORM API connection
@@ -102,8 +101,11 @@ const SCORMProvider = ({ version, debug: debugProp, children }) => {
   }
 
   useEffect(() => {
-    createScormAPIConnection();
-    window.addEventListener("beforeunload", () => closeScormAPIConnection());
+    if (SCORM) {
+      console.log(SCORM)
+      createScormAPIConnection();
+      window.addEventListener("beforeunload", () => closeScormAPIConnection());
+    }
   }, [SCORM]);
 
   const val = {
