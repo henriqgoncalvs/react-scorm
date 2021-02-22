@@ -1,0 +1,62 @@
+{
+  "name": "react-scorm",
+  "version": "1.0.0",
+  "description": "An easy way to use SCORM with your React e-learning platform or whatever application that uses LMS. React-scorm provides a Context Component and a Custom Hook to use and manipulate SCORM variables and functions across your system.",
+  "main": "index.js",
+  "scripts": {
+    "dev": "concurrently \"npm run dist:watch\" \"npm run docs\"",
+    "dist": "babel src/dist -d dist --copy-files",
+    "dist:watch": "babel src/dist -w -d dist --copy-files",
+    "docs": "webpack serve --mode development",
+    "docs:prod": "webpack --mode production"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/henriiqueg/react-scorm.git"
+  },
+  "keywords": [
+    "react",
+    "scorm",
+    "scorm1.2",
+    "scorm2004",
+    "lms",
+    "sco",
+    "elearning",
+    "e-learning",
+    "wrapper",
+    "api"
+  ],
+  "peerDependencies": {
+    "react": "^16.4.2",
+    "react-dom": "^16.4.2"
+  },
+  "dependencies": {
+    "pipwerks-scorm-api-wrapper": "^0.1.2",
+    "prop-types": "^15.7.2"
+  },
+  "author": "Henrique Gonçalves",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/henriiqueg/react-scorm/issues"
+  },
+  "homepage": "https://github.com/henriiqueg/react-scorm#readme",
+  "devDependencies": {
+    "@babel/cli": "^7.12.17",
+    "@babel/core": "^7.12.17",
+    "@babel/plugin-proposal-class-properties": "^7.12.13",
+    "@babel/plugin-transform-runtime": "^7.12.17",
+    "@babel/preset-env": "^7.12.17",
+    "@babel/preset-react": "^7.12.13",
+    "babel-loader": "^8.2.2",
+    "concurrently": "^6.0.0",
+    "css-loader": "^5.0.2",
+    "file-loader": "^6.2.0",
+    "html-webpack-plugin": "^5.2.0",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
+    "style-loader": "^2.0.0",
+    "webpack": "^5.23.0",
+    "webpack-cli": "^4.5.0",
+    "webpack-dev-server": "^3.11.2"
+  }
+}
